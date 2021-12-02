@@ -1,0 +1,35 @@
+.cardPopulares {
+  width: 193.09px;
+  height: 355.1px;
+  background: #050e12;
+  border-radius: 20px;
+
+  span {
+    border-radius: 10px 10px 0 0;
+  }
+  .cardPopulares__text {
+    padding: 15px;
+    background: #050e12;
+    border-radius: 27px;
+
+    h5 {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+      margin: 0;
+      color: #b6b6b6;
+      padding-bottom: 3px;
+    }
+    p {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      color: #828282;
+      margin: 0;
+    }
+  }
+}
