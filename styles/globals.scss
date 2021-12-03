@@ -1,20 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 #app {
-  height: 100%
+  height: 100%;
 }
 
 html,
 body {
   position: relative;
   height: 100%;
+  background: #191b1f;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  background: #191b1f !important;
   font-size: 14px;
-  color: #000;
+  font-family: "Inter", sans-serif;
+  color: #fff !important;
   margin: 0;
   padding: 0;
 }
@@ -25,8 +28,6 @@ body {
 }
 
 .swiper-slide {
-  text-align: center;
-
   /* Center slide text vertically */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -47,4 +48,14 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+input {
+  color: rgba(255, 255, 255, 0.8);
+  width: 475px;
+  border: none;
+}
+@media (max-width: 768px) {
+  input {
+    width: 50%;
+  }
 }

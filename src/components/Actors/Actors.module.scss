@@ -1,0 +1,33 @@
+.cardActors {
+  width: 193px;
+  height: 100%;
+  img {
+    border-radius: 600px;
+  }
+  color: #828282;
+  .cardActors__text {
+    width: 100%;
+    h5 {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 22px;
+      text-align: center;
+      color: #b6b6b6;
+      margin: 0;
+      padding-top: 10px;
+    }
+    p {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      text-align: center;
+      margin: 0;
+      padding-top: 5px;
+      color: #686464;
+    }
+  }
+}
