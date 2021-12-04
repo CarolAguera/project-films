@@ -3,6 +3,8 @@ import { Container } from 'react-bootstrap'
 import { BsSearch } from "react-icons/bs";
 import Image from 'next/image'
 import style from '../../styles/Detail.module.scss'
+import { FormControl, InputGroup } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
 export default function Detail() {
   return (
     <>
@@ -10,13 +12,23 @@ export default function Detail() {
         <Container>
           <div style={{ display: "flex", justifyContent: 'space-between', height: '90px', alignItems: 'center', backgroundColor: '#1F1F1F' }}>
             <h1>GazinFilms</h1>
-            <div>
-              <input type="text" name="" id="" style={{ background: 'rgba(196, 196, 196, 0.3)', borderRadius: '8px 0 0 8px', height: '45px' }} />
-              <button type="submit"><BsSearch /></button>
+            <div style={{
+              display: "flex",
+              justifyContent: "flex-end"
+            }}>
+              <InputGroup>
+                <FormControl
+                  style={{ background: "rgba(196, 196, 196, 0.3)", color: "#fff", borderColor: "rgba(196, 196, 196, 0.3)" }}
+                  aria-describedby="basic-addon2"
+                />
+                <Button id="button-addon2" style={{ background: "rgba(196, 196, 196, 0.3)", borderColor: "rgba(196, 196, 196, 0.3)" }}>
+                  <BsSearch />
+                </Button>
+              </InputGroup>
             </div>
           </div>
         </Container>
-      </div>
+      </div >
 
       <div>
         <Container fluid>

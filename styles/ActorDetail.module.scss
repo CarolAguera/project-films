@@ -1,0 +1,38 @@
+.description-actor {
+  display: flex;
+  align-items: center;
+  div {
+    margin-left: 50px;
+  }
+  img {
+    border-radius: 600px;
+  }
+  h2 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: #ffb800;
+  }
+  p {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    line-height: 30px;
+
+    color: #ededed;
+  }
+}
+
+@media (max-width: 768px) {
+  .description-actor {
+    flex-direction: column;
+    text-align: center;
+    div {
+      padding-top: 15px;
+      margin-left: 0 !important;
+    }
+  }
+}

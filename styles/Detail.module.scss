@@ -55,4 +55,16 @@
     left: 18px;
     top: -60px !important;
   }
+  .descricao__text-titulo {
+    padding-left: 0 !important;
+    padding-top: 50px;
+  }
+  .descricao__text {
+    h2{
+      width: 100% !important;
+    }
+    p {
+      width: 100% !important;
+    }
+  }
 }

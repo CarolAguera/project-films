@@ -18,18 +18,52 @@ import Card3 from '../../public/card3.jpg'
 import Banner1 from '../../public/banner1.jpg'
 import { Carousel } from "react-bootstrap";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
+import { FormControl, InputGroup } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import { BsSearch } from "react-icons/bs";
+
 export default function Index() {
+
+  const options = {
+    method: 'GET',
+    url: 'https://imdb8.p.rapidapi.com/actors/list-most-popular-celebs',
+    params: { homeCountry: 'US', currentCountry: 'PT', purchaseCountry: 'US' },
+    headers: {
+      'x-rapidapi-host': 'imdb8.p.rapidapi.com',
+      // 'x-rapidapi-key': '1135e4642bmsh9df8cd70df3bafcp19410fjsn2259c58e109e'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+
   return (
     <>
       <div style={{ backgroundColor: '#1F1F1F' }}>
         <Container>
           <div style={{ display: "flex", justifyContent: 'space-between', height: '90px', alignItems: 'center', backgroundColor: '#1F1F1F' }}>
             <h1>GazinFilms</h1>
-            <input type="text" name="" id="" style={{ background: 'rgba(196, 196, 196, 0.3)', borderRadius: '8px', height: '45px' }} />
+            <div style={{
+              display: "flex",
+              justifyContent: "flex-end"
+            }}>
+              <InputGroup>
+                <FormControl
+                  style={{ background: "rgba(196, 196, 196, 0.3)", color: "#fff", borderColor: "rgba(196, 196, 196, 0.3)" }}
+                  aria-describedby="basic-addon2"
+                />
+                <Button id="button-addon2" style={{ background: "rgba(196, 196, 196, 0.3)", borderColor: "rgba(196, 196, 196, 0.3)" }}>
+                  <BsSearch />
+                </Button>
+              </InputGroup>
+            </div>
           </div>
         </Container>
-      </div>
+      </div >
       <Container>
         <Row>
           <Carousel fade>
@@ -86,7 +120,7 @@ export default function Index() {
             }}
             breakpoints={{
               "320": {
-                "slidesPerView": 3,
+                "slidesPerView": 2,
                 "spaceBetween": 20,
                 "grid": {
                   "rows": 2,
@@ -145,7 +179,7 @@ export default function Index() {
             }}
             breakpoints={{
               "320": {
-                "slidesPerView": 3,
+                "slidesPerView": 2,
                 "spaceBetween": 20,
                 "grid": {
                   "rows": 2,
