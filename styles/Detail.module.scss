@@ -1,0 +1,58 @@
+.descricao {
+  position: relative;
+  .descricao__foto-perfil {
+    position: absolute;
+    top: -206px;
+  }
+  .descricao__text-titulo {
+    padding-left: 240px;
+  }
+  .descricao__text {
+    padding-top: 40px;
+    h2 {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: bold;
+      font-size: 48px;
+      line-height: 56px;
+
+      color: #ffffff;
+    }
+    p {
+      width: 700px;
+      font-size: 22px;
+      color: #ffffff;
+    }
+  }
+}
+.descricao__classficacao {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  div {
+    margin-right: 14px;
+  }
+}
+.descricao__imdb {
+  width: 121px;
+  height: 39px;
+  background: #ffb800;
+  border-radius: 8px;
+  h1 {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 37px;
+    color: #050e12;
+    text-align: center;
+  }
+}
+@media (max-width: 768px) {
+  .descricao__foto-perfil {
+    width: 54px;
+    height: 81px;
+    left: 18px;
+    top: -60px !important;
+  }
+}
