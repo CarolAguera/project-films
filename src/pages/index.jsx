@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode"
@@ -22,24 +22,59 @@ import { Container, Row } from "react-bootstrap";
 import { FormControl, InputGroup } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import { BsSearch } from "react-icons/bs";
-
+import axios from 'axios'
+import api from '../api/api'
 export default function Index() {
+  const [listActors, setListActors] = useState([]);
+  const [actors, setActors] = useState([]);
+  const MAX_REQUEST = 4;
 
-  const options = {
-    method: 'GET',
-    url: 'https://imdb8.p.rapidapi.com/actors/list-most-popular-celebs',
-    params: { homeCountry: 'US', currentCountry: 'PT', purchaseCountry: 'US' },
-    headers: {
-      'x-rapidapi-host': 'imdb8.p.rapidapi.com',
-      // 'x-rapidapi-key': '1135e4642bmsh9df8cd70df3bafcp19410fjsn2259c58e109e'
+  useEffect(() => {
+    let list = [];
+    api.get('/actors/list-most-popular-celebs', {
+      params: { homeCountry: 'US', currentCountry: 'PT', purchaseCountry: 'US' },
+    })
+      .then(function (response) {
+        list = response.data.map(element => {
+          return element.replace('/name/', '').replace('/', '');
+        });
+        setListActors(list);
+
+        for (let index = 0; index < MAX_REQUEST; index++) {
+          api.get('/actors/get-bio', {
+            params: { nconst: `${list[index]}` },
+          }).then(function (response) {
+            setActors(prevState => [...prevState, response.data]);
+          })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }
+
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+
+
+  }, [])
+
+
+  function next() {
+    const initInterval = actors.length;
+    const finalInterval = initInterval + MAX_REQUEST;
+    for (let index = initInterval; index < finalInterval; index++) {
+      api.get('/actors/get-bio', {
+        params: { nconst: `${listActors[index]}` },
+      }).then(function (response) {
+        setActors(prevState => [...prevState, response.data]);
+      })
+        .catch(function (error) {
+          console.error(error);
+        });
     }
-  };
-
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
+  }
 
   return (
     <>
@@ -296,14 +331,50 @@ export default function Index() {
 
 
           <h1>Atores populares</h1>
+
+
+          <div className="navigation prev-card prev-workshop-ref" >
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="chevron-swiper"
+              style={{ transform: "rotate(180deg)" }}
+            >
+              <circle cx="20" cy="20" r="19" stroke="#33cc00" strokeWidth="2" />
+              <path
+                d="M17.895 13.6842L24.2108 20L17.895 26.3158"
+                stroke="#33cc00"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
+          <div className="navigation next-card next-workshop-ref" onClick={next}>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="chevron-swiper"
+            >
+              <circle cx="20" cy="20" r="19" stroke="#33cc00" strokeWidth="2" />
+              <path
+                d="M17.895 13.6842L24.2108 20L17.895 26.3158"
+                stroke="#33cc00"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
+
           <Swiper
-            style={{ '--swiper-navigation-color': '#FFB800', '--swiper-pagination-color': '#FFB800' }}
             slidesPerView={3}
             spaceBetween={30}
-            navigation={true}
-            autoplay={{
-              "delay": 2000,
-              "disableOnInteraction": false
+            navigation={{
+              nextEl: '.next-workshop-ref',
+              prevEl: '.prev-workshop-ref',
             }}
             grid={{
               "rows": 1,
@@ -311,7 +382,7 @@ export default function Index() {
             }}
             breakpoints={{
               "320": {
-                "slidesPerView": 3,
+                "slidesPerView": 2,
                 "spaceBetween": 20,
                 "grid": {
                   "rows": 2,
@@ -319,7 +390,7 @@ export default function Index() {
                 }
               },
               "640": {
-                "slidesPerView": 3,
+                "slidesPerView": 2,
                 "spaceBetween": 20,
                 "grid": {
                   "rows": 2,
@@ -327,7 +398,7 @@ export default function Index() {
                 }
               },
               "768": {
-                "slidesPerView": 4,
+                "slidesPerView": 2,
                 "spaceBetween": 40,
                 "grid": {
                   "rows": 2,
@@ -335,7 +406,7 @@ export default function Index() {
                 }
               },
               "1024": {
-                "slidesPerView": 5,
+                "slidesPerView": 4,
                 "spaceBetween": 50,
                 "grid": {
                   "rows": 1,
@@ -344,94 +415,19 @@ export default function Index() {
               }
             }}
             className="mySwiper3">
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Actors
-                foto={Card3}
-                name="Angelina Jolie"
-                year="50"
-              >
-              </Actors>
-            </SwiperSlide>
+
+            {actors.map((actor, index) => {
+              return (<SwiperSlide key={index}>
+                <Actors
+                  foto={actor?.image.url}
+                  name={actor?.name}
+                  year={actor?.birthDate}
+                >
+                </Actors>
+              </SwiperSlide>
+              )
+            })}
+            <SwiperSlide />
           </Swiper>
         </Row>
       </Container>

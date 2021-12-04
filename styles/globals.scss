@@ -52,7 +52,11 @@ body {
 
 @media (max-width: 768px) {
   .input-group {
-    
     width: 80% !important;
+  }
+  .carousel-caption{
+    p{
+      display: none;
+    }
   }
 }
