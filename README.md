@@ -21,3 +21,10 @@ yarn dev
 ```
 http://localhost:3000
 ```
+
+### Este projeto contém as seguintes rotas:
+
+- ***/home ►*** Página incial da aplicação;
+- ***/search ►*** Página que lista os filmes após serem filtrados via o campo de input presente no header;
+- ***/movie-detail ►*** Página que exibe os detalhes de um filme selecionado;
+- ***/actor-detail ►*** Página que exibe os dados de um ator selecionado.
