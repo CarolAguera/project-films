@@ -2,17 +2,13 @@
 
 ### Rode um destes comandos para instalar as dependências
 
-```bash
-npm install
-# or
+```
 yarn install
 ```
 
 ### Rode um destes comandos para rodar o projeto
 
-```bash
-npm run dev
-# or
+```
 yarn dev
 ```
 
