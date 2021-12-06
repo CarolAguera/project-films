@@ -60,3 +60,14 @@ body {
     }
   }
 }
+.buttons-navegation{
+  display: flex;
+  justify-content: space-between;
+}
+.buttons-navegation-buttons{
+  display: flex;
+}
+a{
+  text-decoration: none !important;
+  color: #fff !important;
+}

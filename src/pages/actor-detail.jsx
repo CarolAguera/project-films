@@ -9,19 +9,23 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/grid";
-import CardLancamentos from "../components/CardLancamentos/CardLancamentos";
+import ListFilms from "../components/ListFilms/ListFilms";
 import Card1 from "../../public/card1.jpg";
 import SwiperCore, { Autoplay, Pagination, Navigation, Grid } from "swiper";
 SwiperCore.use([Autoplay, Pagination, Navigation, Grid]);
-import style from "../../styles/ActorDetail.module.scss";
+import style from "../styles/ActorDetail.module.scss";
 import { useRouter } from "next/router";
 import api from "../api/api";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
+import AgeCalculator from "../utilities/AgeCalculator";
+
 export default function ActorDetail() {
   const router = useRouter();
   const [detailActor, setDetailActor] = useState();
+  const [filmographyActor, setFilmographyActor] = useState([]);
   let search = router.query.actor;
+  const MAX_REQUEST = 4;
 
   useEffect(() => {
     api
@@ -30,6 +34,16 @@ export default function ActorDetail() {
       })
       .then(function (response) {
         setDetailActor(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    api
+      .get("/actors/get-all-filmography", {
+        params: { nconst: `${search}` },
+      })
+      .then(function (response) {
+        setFilmographyActor(response.data.filmography);
       })
       .catch(function (error) {
         console.error(error);
@@ -49,7 +63,9 @@ export default function ActorDetail() {
             ></Image>
             <div>
               <h2>{detailActor.realName}</h2>
-              <p>{detailActor.birthDate}anos</p>
+              <p>
+                {AgeCalculator(new Date(detailActor.birthDate), new Date())} anos
+              </p>
               <p>{detailActor.birthPlace}</p>
             </div>
           </div>
@@ -111,76 +127,20 @@ export default function ActorDetail() {
               }}
               className="mySwiper2"
             >
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
-              <SwiperSlide>
-                <CardLancamentos
-                  foto={Card1}
-                  name="Mulher Maravilha"
-                  year="2020"
-                ></CardLancamentos>
-              </SwiperSlide>
+              {filmographyActor.map((filmography, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <ListFilms
+                      id={filmography?.id
+                        .replace("/title/", "")
+                        .replace("/", "")}
+                      foto={filmography?.image?.url || "/card1.jpg"}
+                      name={filmography?.title}
+                      year={filmography?.year}
+                    ></ListFilms>
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           </div>
         </Container>

@@ -6,28 +6,32 @@ import React, { useEffect, useState } from "react";
 export default function Banner() {
   const [listBanner, setListBanner] = useState([]);
   const [banner, setBanner] = useState([]);
-  useEffect(() => {
-    let bannerArray = [];
-    // api.get("/title/get-best-picture-winners").then(function (response) {
-    //   bannerArray = response.data.map((element) => {
-    //     return element.replace("/title/", "").replace("/", "");
-    //   });
-    //   setListBanner(bannerArray);
-    //   for (let index = 0; index < MAX_REQUEST; index++) {
-    //     api
-    //       .get("/title/get-meta-data", {
-    //         params: { ids: `${bannerArray[index]}`, region: "PT" },
-    //       })
+  const MAX_REQUEST = 4;
 
-    //       .then(function (response) {
-    //         const id = response.config.params.ids;
-    //         setBanner((prevState) => [...prevState, response.data[id]]);
-    //       })
-    //       .catch(function (error) {
-    //         console.error(error);
-    //       });
-    //   }
-    // });
+  useEffect(() => {
+    setTimeout(() => {
+      let bannerArray = [];
+      api.get("/title/get-best-picture-winners").then(function (response) {
+        bannerArray = response.data.map((element) => {
+          return element.replace("/title/", "").replace("/", "");
+        });
+        setListBanner(bannerArray);
+        for (let index = 0; index < MAX_REQUEST; index++) {
+          api
+            .get("/title/get-meta-data", {
+              params: { ids: `${bannerArray[index]}`, region: "PT" },
+            })
+
+            .then(function (response) {
+              const id = response.config.params.ids;
+              setBanner((prevState) => [...prevState, response.data[id]]);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+        }
+      });
+    }, 1000);
   }, []);
 
   return (

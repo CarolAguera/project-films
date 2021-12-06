@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import Image from "next/image";
-import style from "../../styles/Detail.module.scss";
+import style from "../styles/Detail.module.scss";
 import { FormControl, InputGroup } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { useRouter } from "next/router";

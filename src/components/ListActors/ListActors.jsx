@@ -1,9 +1,10 @@
-import style from "./CardPopulares.module.scss";
+import style from "./ListActors.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
-export default function CardPopulares(props) {
+import AgeCalculator from "../../utilities/AgeCalculator";
+export default function ListActors(props) {
   const router = useRouter();
-
+  
   function redirect() {
     const TYPE_FILM = "tt";
     const TYPE_ACTOR = "nm";
@@ -20,16 +21,14 @@ export default function CardPopulares(props) {
         query: { actor: id },
       });
     }
-
-    props.id;
   }
 
   return (
-    <div className={style["cardPopulares"]} onClick={redirect}>
-      <Image src={props.foto} width="193" height="290" alt="Card Film"></Image>
-      <div className={style["cardPopulares__text"]}>
+    <div className={style["cardActors"]} onClick={redirect}>
+      <Image src={props.foto} width="193" height="193"></Image>
+      <div className={style["cardActors__text"]}>
         <h5>{props.name}</h5>
-        <p>{props.year}</p>
+        <p>{AgeCalculator(new Date(props.year), new Date())}</p>
       </div>
     </div>
   );

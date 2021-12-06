@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/grid";
 import SwiperCore, { Autoplay, Pagination, Navigation, Grid } from "swiper";
 SwiperCore.use([Autoplay, Pagination, Navigation, Grid]);
-import CardLancamentos from "../components/CardLancamentos/CardLancamentos";
+import ListFilms from "../components/ListFilms/ListFilms";
 import Card1 from "../../public/card1.jpg";
 import { Row } from "react-bootstrap";
 import { Container, FormControl, InputGroup } from "react-bootstrap";
@@ -15,7 +15,7 @@ import Button from "react-bootstrap/Button";
 import { BsSearch } from "react-icons/bs";
 import { useRouter } from "next/router";
 import api from "../api/api";
-import CardPopulares from "../components/CardPopulares/CardPopulares";
+import ListResults from "../components/ListResults/ListResults";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 
@@ -103,12 +103,12 @@ export default function Search() {
             {busca.map((buscar, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <CardPopulares
+                  <ListResults
                     id={buscar?.id}
                     foto={buscar?.i.imageUrl}
                     name={buscar?.l}
                     year={buscar?.s}
-                  ></CardPopulares>
+                  ></ListResults>
                 </SwiperSlide>
               );
             })}

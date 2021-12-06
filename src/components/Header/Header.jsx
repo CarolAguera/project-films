@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Container, FormControl, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-
+import Link from "next/link";
 export default function Header() {
   const [search, setSearch] = useState([]);
   const router = useRouter();
@@ -23,7 +23,11 @@ export default function Header() {
             backgroundColor: "#1F1F1F",
           }}
         >
-          <h1>GazinFilms</h1>
+          <Link href="/">
+            <a>
+              <h1>GazinFilms</h1>
+            </a>
+          </Link>
           <div
             style={{
               display: "flex",
